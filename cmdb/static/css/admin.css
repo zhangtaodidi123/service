@@ -1588,7 +1588,7 @@
   transition: left 0.3s;
 }
 .main-layout-side .m-logo {
-  width: 100%;
+  width: 101%;
   height: 100px;
   background: #00b5f9 url(../images/logo2.png) center center no-repeat;
 }
