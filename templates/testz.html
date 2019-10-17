@@ -1,0 +1,73 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static '/bootstrap-3.3.7/dist/css/bootstrap.css/' %}">
+
+    <style>
+
+        .container{
+            margin-top: 50px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+
+<div class="container">
+    <div class="row">
+
+
+        <div class="col-md-8 col-md-offset-2">
+
+        <table class="table table-striped">
+            <tr>
+                <th>ID</th>
+                <th>书名</th>
+                <th>价格</th>
+                <th>出版日期</th>
+                <th>作者</th>
+                <th>出版社</th>
+                <th>分类</th>
+                <th>操作</th>
+            </tr>
+
+             {% for book in book_list %}
+            <tr>
+
+                    <td>{{ forloop.counter }}</td>--------------------按照顺序显示，
+                    <td>{{ book.name }}</td>
+                    <td>{{ book.price }}</td>
+                    <td>{{ book.Date }}</td>
+                    <td>{{ book.auth }}</td>
+                    <td>{{ book.publish }}</td>
+                    <td>{{ book.classification }}</td>
+                    <td>
+{#                        当前的ip和端口都可以省略，会自动添加，a标签会访问addbook路径#}
+                         <a href="/addbook/"><button class="btn btn-primary">添加</button></a>
+{#                         在get请求时，url加上删除时点击到的id，获取id，就可以删除#}
+                         <a href="/delbook/?id={{ book.id }}"><button class="btn btn-primary">删除</button></a>
+{#                         取到路径，#}
+                        <a href="/editorbook/{{ book.id }}"><button class="btn btn-primary">编辑</button></a>
+                    </td>d
+
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+    </div>
+
+</div>
+</body>
+
+<script>
+
+
+</script>
+
+</html>
