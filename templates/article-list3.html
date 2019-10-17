@@ -12,6 +12,21 @@
 		<link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %}" />
 	</head>
 	<body>
+        <script type="text/javascript">
+
+function request(){
+    var obj = {};
+    var arr = window.location.search.slice(1).split("&");
+    for (var i = 0, len = arr.length; i < len; i++) {
+        var nv = arr[i].split("=");
+        obj[unescape(nv[0]).toLowerCase()] = unescape(nv[1]);
+    }
+    return obj;
+}
+var req = request();
+document.getElementById("stype").value = req.stype;
+</script>
+
      <div class="main-layout" id='main-layout'>
 
 			<div class="main-layout-side">
@@ -86,7 +101,7 @@
 								<col class="hidden-xs" width="150">
 								<col class="hidden-xs" width="150">
 								<col width="150">
-								<col width="150">
+								<col width="100">
 							</colgroup>
 							<thead>
 								<tr>
@@ -94,6 +109,7 @@
 
 									<th>ULBIP地址</th>
 									<th>使用功能备注</th>
+									<th>vserver管理选择</th>
 
 								</tr>
 							</thead>
@@ -106,6 +122,33 @@
 									<a><td type="text"  class="hidden-xs">{{ row.name }}</td></a>
 									<a name="ip_in"><td class="ipaddress">{{ row.ulb_ip }}</td></a>
 									<td class="hidden-xs">{{ row.comment }}</td>
+                                <td  style="width: 50px">
+
+                                <select id="stype" onChange="location.replace(this.options[this.selectedIndex].getAttribute('data-href'))">
+                                <option value="0" data-href="http://www.163.com">所有服务</option>
+                            <option value="1"><button type="button" class="layui-btn">一个标准的按钮</button>
+                            <a href="http://www.layui.com" class="layui-btn">一个可跳转的按钮</a></option>
+                                <option value="http://www.baidu.com">2</option>
+                                <option value="4">4</option>
+                            </select>
+{#                                <select>#}
+{#                                <option value="#">请选择</option>#}
+{#                                <option value="https://zhihu.com">知乎</option>#}
+{#                                <option value="https://tieba.baidu.com">贴吧</option>#}
+{#                                <option value="https://weibo.com">微博</option>#}
+{#                            </select>#}
+
+{#                                <div class="footer">#}
+{#                                    <select multiple="multiple" size="1" style="width: 50px">#}
+{##}
+{#                                  <option><a   href="#" ><li  onclick="return tanchu(this.value)" value="{{ row.id }}">8888</li></a>#}
+{#                                  <option value="http://baidu.com">8888</option>#}
+{#                                  <option value ="saab">80</option>#}
+{#                                  <option value="opel">9090</option>#}
+{##}
+{#                                </select>#}
+{#                                     </div>#}
+                                </td>
 
                             {% endfor %}
                              </tr>
@@ -118,27 +161,59 @@
 
 							</tbody>
 						</table>
+      <div class="pagination">
+            <span class="step-links">
+        {% if host_list.has_previous %}
+            <button class="layui-btn">
+                <a href="?page=1">第一页</a>
+            </button>
 
+            <button class="layui-btn">
+                <a href="?page={{ host_list.previous_page_number }}"><i class="layui-icon">&#xe65a;</i></a>
+            </button>
+        {% endif %}
 
-                   <div class="page-wrap">
-                        <ul class="pagination">
-                            <li class="disabled"><span>«</span></li>
-                            {% for pg in host_list.paginator.page_range %}
-                                {% if host_list.number == pg %}
-                            <li class="disabled"><a href="?page={{ pg }}">{{ pg }}  </a></li>
+        <span class="current">
+            <button class="layui-btn">
+                第 {{ host_list.number }}页  共 {{ host_list.paginator.num_pages }}页
+            </button>
+        </span>
 
-                        {% else %}
-                            <Li><a href="?page={{ pg }}" class="disabled">{{ pg }}</a> </Li>
+        {% if host_list.has_next %}
+            <button class="layui-btn">
+                <a href="?page={{ host_list.next_page_number }}"><i class="layui-icon">&#xe65b;</i></a>
+            </button>
 
-                        {% endif %}
-                            {% endfor %}
-                        </ul>
+            <button class="layui-btn">
+                <a href="?page={{ host_list.paginator.num_pages }}">最后一页</a>
+            </button>
+        {% endif %}
+    </span>
+</div>
+</div>
 
-                       </nav>
-
-                   </div>
 				</div>
-		</div>
+
+
+{#                   <div class="page-wrap">#}
+{#                        <ul class="pagination">#}
+{#                            <li class="disabled"><span>«</span></li>#}
+{#                            {% for pg in host_list.paginator.page_range %}#}
+{#                                {% if host_list.number == pg %}#}
+{#                            <li class="disabled"><a href="?page={{ pg }}">{{ pg }}  </a></li>#}
+{##}
+{#                        {% else %}#}
+{#                            <Li><a href="?page={{ pg }}" class="disabled">{{ pg }}</a> </Li>#}
+{##}
+{#                        {% endif %}#}
+{#                            {% endfor %}#}
+{#                        </ul>#}
+{##}
+{#                       </nav>#}
+{##}
+{#                   </div>#}
+{#				</div>#}
+{#		</div>#}
 		<script src="{% static 'layui/layui.js' %}" type="text/javascript" charset="utf-8"></script>
 		<script src="{% static 'js/common.js' %}" type="text/javascript" charset="utf-8"></script><script src="{% static 'layui/layui.js' %}" type="text/javascript" charset="utf-8"></script>
 		<script src="{% static 'js/common.js' %}" type="text/javascript" charset="utf-8"></script>
@@ -147,5 +222,55 @@
 
 
     </body>
+<script>
+    var select = document.querySelector('select');
+select.onchange = function() {
+    window.location = this.value;
+}
+        function tanchu(n){
+    layer.open({
+    type: 2,
+    title: '修改信息',
+    closeBtn: 1,
+    area: ['600px', '400px'],
+    shadeClose: true, //点击遮罩关闭
+    content: ['/UserGroup/update'],
 
+    end:function(){
+            var handle_status = $("#handle_status").val();
+            if ( handle_status == '1' ) {
+                layer.msg('保存成功！',{
+                    icon: 1,
+                    time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                },function(){
+                    location.reload();
+
+                });
+            } else if ( handle_status == '2' ) {
+                layer.msg('修改失败！',{
+                    icon: 2,
+                    time: 2000 //2秒关闭（如果不配置，默认是3秒）
+                },function(){
+                    history.go(0);
+                });
+            }
+        }
+  });
+}
+
+var aSelect=document.querySelectorAll(".footer select");
+for(var i=0;i<aSelect.length;i++)
+{
+	aSelect[i].onchange=function()
+	{
+		var url=this.options[this.selectedIndex].value;
+		window.open(url);
+	}
+}
+
+var select = document.querySelector('select');
+select.onchange = function() {
+    window.location = this.value;
+}
+</script>
 </html>

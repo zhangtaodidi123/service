@@ -15,75 +15,62 @@
 
 	<body>
 		<div class="page-content-wrap">
-				<form class="layui-form"  id="form_id" action="/addhost/" method="post">
-                            {%csrf_token%}
-
-
-
-					<div class="layui-tab" style="margin: 0;">
-
-						<div class="layui-tab-content">
-							<div class="layui-tab-item"></div>
-							<div class="layui-tab-item layui-show">
-								<div class="layui-form-item">
-									<label class="layui-form-label">主机名称</label>
-									<div class="layui-input-block">
-										<input type="text" name="hostname" required lay-verify="required" placeholder="请输入主机名称" autocomplete="off" class="layui-input">
-									</div>
-								</div>
-								<div class="layui-form-item">
-									<label class="layui-form-label">内网IP地址</label>
-									<div class="layui-input-block">
-										<input type="text" name="ipin" required lay-verify="required" placeholder="请输入内网IP地址" autocomplete="off" class="layui-input">
-									</div>
-	                                </div>
-								</div>
+		    <form class="layui-form"  id="form_id" action="/addhost/" method="post">
+                {%csrf_token%}
+		    	<div class="layui-tab" style="margin: 0;">
+		    		<div class="layui-tab-content">
+		    			<div class="layui-tab-item layui-show">
+		    				<div class="layui-form-item">
+		    					<label class="layui-form-label">主机名称</label>
+		    					<div class="layui-input-block">
+		    						<input type="text" name="hostname" required lay-verify="required" placeholder="请输入主机名称" autocomplete="off" class="layui-input">
+		    					</div>
+		    				</div>
+		    				<div class="layui-form-item">
+		    					<label class="layui-form-label">内网IP地址</label>
+		    					<div class="layui-input-block">
+		    						<input type="text" name="ipin" required lay-verify="required" placeholder="请输入内网IP地址" autocomplete="off" class="layui-input">
+		    					</div>
+	                        </div>
                             <div class="layui-form-item">
-									<label class="layui-form-label">外网IP地址</label>
-									<div class="layui-input-block">
-										<input type="text" name="ipout" required lay-verify="required" placeholder="请输入外网IP地址" autocomplete="off" class="layui-input">
-									</div>
-
-                            <div class="layui-form-item">
-									<label class="layui-form-label">内存</label>
-									<div class="layui-input-block">
-										<input type="text" name="mem" required lay-verify="required" placeholder="请输入内存" autocomplete="off" class="layui-input">
-									</div>
-
-
-                                <div class="layui-form-item">
-									<label class="layui-form-label">磁盘</label>
-									<div class="layui-input-block">
-										<input type="text" name="disk" required lay-verify="required" placeholder="请输入磁盘" autocomplete="off" class="layui-input">
-									</div>
-                                                              <div class="layui-form-item">
-									<label class="layui-form-label">CPU</label>
-									<div class="layui-input-block">
-										<input type="text" name="cpu" required lay-verify="required" placeholder="请输入CPU类型个数" autocomplete="off" class="layui-input">
-									</div>
-
-                                                              </div>
-						</div>
-					</div>
-					<div class="layui-form-item" style="padding-left: 10px;">
-						<div class="layui-input-block">
-{#							<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" username="123" userid="1234">立即提交</button>#}
-                            <button class="layui-btn layui-btn-normal" id="form-btn">立即提交</button>
-							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
-{% if result.statu == 'success' %}
-        <a>添加成功</a>
-                            {% endif %}
-                            </div>
+		    				<label class="layui-form-label">外网IP地址</label>
+		    				<div class="layui-input-block">
+		    					<input type="text" name="ipout" required lay-verify="required" placeholder="请输入外网IP地址" autocomplete="off" class="layui-input">
+		    				</div>
                         </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">磁盘</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="disk" required lay-verify="required" placeholder="请输入磁盘" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">CPU</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="cpu" required lay-verify="required" placeholder="请输入CPU类型个数" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">内存</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="mem" required lay-verify="required" placeholder="请输入内存" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+		    			</div>
+                        <script type="text/javascript" src="static/admin/layui/tip.js"></script>
+		    		</div>
+		    	</div>
+				<div class="layui-form-item btnsub" style="padding-left: 10px;">
+					<div class="layui-input-block">
+{#						<button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo" username="123" userid="1234">立即提交</button>#}
+                        <button class="layui-btn layui-btn-normal" style="margin-right:20px" id="form-btn">立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        {% if result.statu == 'success' %}
+                        <a>添加成功</a>
+                        {% endif %}
                     </div>
-
-
-                    <script type="text/javascript" src="static/admin/layui/tip.js"></script>
-
-						</div>
-					</div>
-
-				</form>
+                </div>
+		    </form>
 		</div>
 		<script type="text/javascript">
 			var SCOPE = {

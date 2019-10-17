@@ -73,6 +73,7 @@
 							</div>
 
 							<button class="layui-btn layui-btn-normal" lay-submit="search">我要搜索</button>
+							<button class="layui-btn layui-btn-normal" lay-submit="search">我要更新</button>
                             {%  csrf_token %}
 						</div>
 					</form>
@@ -91,14 +92,13 @@
 							<thead>
 								<tr>
 									<th class="hidden-xs">ELP名称</th>
-{#									<th>内网IP地址</th>#}
-									<th>外网IP地址</th>
+                                    <th>外网/内网 IP地址</th>
+                                    <th>网络带宽</th>
+                                    <th type="checkbox"> 绑定状态</th>
 									<th>备注</th>
-{#									<th>状态</th>#}
-{#									<th>操作</th>#}
-{#									<th>内存(M)</th>#}
-{#									<th>磁盘(G)</th>#}
-{#									<th>Cpu(个）</th>#}
+									<th>操作</th>
+									<th>删除</th>
+
 								</tr>
 							</thead>
 							<tbody>
@@ -110,6 +110,11 @@
 									<a><td type="text"  class="hidden-xs">{{ row.host_name }}</td></a>
 									<a name="ip_in"><td class="ipaddress">{{ row.ip_out }}</td></a>
 									<td class="hidden-xs">{{ row.comment }}</td>
+									<td class="hidden-xs" type="checkbox">暂时为空</td>
+									<td class="hidden-xs">暂时为空</td>
+                                     <td><a   href="#" type="button" class="layui-btn layui-btn-mini layui-btn-normal" ><li  onclick="return tanchu(this.value)" value="{{ row.id }}">查看详情</li></a></td>
+                                     <td><a   href="#" type="button" class="layui-btn layui-btn-mini layui-btn-normal" ><li  onclick="return tanchu(this.value)" value="{{ row.id }}">删除</li></a></td>
+
 {#									<td><button class="layui-btn layui-btn-mini layui-btn-normal">正常</button></td>#}
 {#									<td><div class="layui-inline">#}
 {#									</td>#}
@@ -129,31 +134,64 @@
 							</tbody>
 						</table>
 
+                <div class="pagination">
+            <span class="step-links">
+        {% if host_list.has_previous %}
+            <button class="layui-btn">
+                <a href="?page=1">第一页</a>
+            </button>
 
-                   <div class="page-wrap">
-                        <ul class="pagination">
-                            <li class="disabled"><span>«</span></li>
-                            {% for pg in host_list.paginator.page_range %}
-                                {% if host_list.number == pg %}
-                            <li class="disabled"><a href="?page={{ pg }}">{{ pg }}  </a></li>
+            <button class="layui-btn">
+                <a href="?page={{ host_list.previous_page_number }}"><i class="layui-icon">&#xe65a;</i></a>
+            </button>
+        {% endif %}
 
-                        {% else %}
-                            <Li><a href="?page={{ pg }}" class="disabled">{{ pg }}</a> </Li>
+        <span class="current">
+            <button class="layui-btn">
+                第 {{ host_list.number }}页  共 {{ host_list.paginator.num_pages }}页
+            </button>
+        </span>
 
-                        {% endif %}
-                            {% endfor %}
-                        </ul>
+        {% if host_list.has_next %}
+            <button class="layui-btn">
+                <a href="?page={{ host_list.next_page_number }}"><i class="layui-icon">&#xe65b;</i></a>
+            </button>
 
-                       </nav>
+            <button class="layui-btn">
+                <a href="?page={{ host_list.paginator.num_pages }}">最后一页</a>
+            </button>
+        {% endif %}
+    </span>
+</div>
+</div>
 
-                   </div>
+				</div>
+
+{##}
+{#                   <div class="page-wrap">#}
+{#                        <ul class="pagination">#}
+{#                            <li class="disabled"><span>«</span></li>#}
+{#                            {% for pg in host_list.paginator.page_range %}#}
+{#                                {% if host_list.number == pg %}#}
+{#                            <li class="disabled"><a href="?page={{ pg }}">{{ pg }}  </a></li>#}
+{##}
+{#                        {% else %}#}
+{#                            <Li><a href="?page={{ pg }}" class="disabled">{{ pg }}</a> </Li>#}
+{##}
+{#                        {% endif %}#}
+{#                            {% endfor %}#}
+{#                        </ul>#}
+{##}
+{#                       </nav>#}
+{##}
+{#                   </div>#}
 				</div>
 		</div>
 		<script src="{% static 'layui/layui.js' %}" type="text/javascript" charset="utf-8"></script>
 		<script src="{% static 'js/common.js' %}" type="text/javascript" charset="utf-8"></script><script src="{% static 'layui/layui.js' %}" type="text/javascript" charset="utf-8"></script>
 		<script src="{% static 'js/common.js' %}" type="text/javascript" charset="utf-8"></script>
 		<script src="{% static 'js/main.js' %}" type="text/javascript" charset="utf-8"></script>
-            </div>
+         </div>
 
 
     </body>

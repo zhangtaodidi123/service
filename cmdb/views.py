@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from .models import *
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render,render_to_response,HttpResponse
-from cmdb.models import Host_table
+from django.shortcuts import render,render_to_response,HttpResponse,redirect
+from cmdb.models import Host_table,project
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger  # 分页用到的几个模块
 from  cmdb import  models
-
+from service.forms import ProjectFrom
+from  service.forms import UserGroup_form
 
 def index(request):
     return render(request, 'index.html')
@@ -20,7 +21,7 @@ def article(request):
 
 
     host_list = Host_table.objects.all()   # 取出所有的主机页面信息
-    paginator = Paginator(host_list,16,11)  # 实例化结果集，每页16条数据,少于15条就合并到上一页
+    paginator = Paginator(host_list,15,16)  # 实例化结果集，每页16条数据,少于15条就合并到上一页
     page = request.GET.get('page')          # 接收网页传递过来的 page
 
     try:
@@ -143,6 +144,8 @@ def ulb(request):
 
 
 
+
+
     return render(request,'article-list3.html',{'host_list':customer})
 
 
@@ -179,5 +182,150 @@ def addulb(request):
 
 
     return render(request, "article-detail2.html",{"result":result})
+
+
+
+
+#  主机页面 编辑页面操作
+def edithost(request,value):
+    result = {}  # 创建一个空字典，以后存在更新状态是否OK
+
+
+        ####   value
+    hostname =  Host_table.objects.filter(host_name=value)
+    if request.method == "POST":
+        obj_f = Project_form(request.POST, instance=hostname)
+        if obj_f.is_valid():
+            obj_f.save()
+            status = 1
+        else:
+            status = 2
+    else:
+        obj_f = Project_form(instance=hostname)
+
+
+
+    return render(request, "article-detail.html", {"result": result})
+
+
+def del_publisher(request):
+    pk = request.GET.get('id')
+    print(pk)
+    obj = models.Host_table.objects.get(ip_in=pk)
+
+    obj.delete()
+
+    return render(request,'article-list.html')
+
+
+def UserGroup_edit(request, ids):
+
+    obj = Host_table.objects.filter(id=ids)   ## 根据url传递的ids，来查询obj
+    return  render(request,'test.html',{'obj':obj})
+
+
+# 查看disk 目录大小
+def gen_disk(request,ids):
+
+    obj = obj = Host_table.objects.filter(id=ids)   ## 根据url传递的ids，来查询obj
+    return  render(request,'test.html',{'obj':obj})
+
+
+
+
+
+
+def UserGroup_delete(request,ids):
+    obj = Host_table.objects.filter(id=ids)   ## 根据url传递的ids，来查询obj
+
+    obj.delete()
+    return  render(request,'delete.html',{'obj':obj})
+
+
+## 清理磁盘所用到的测试函数哦IMPORT
+import paramiko
+def disk(request,ids):
+
+    id = Host_table.objects.filter(id=ids)  # 获取对应的主机数据库id
+    for i in id:
+        # ip = i.ip_in    # 获得ip地址
+        ip = '192.168.11.57'
+        name = 'root'
+        passwd = 'zhangtao@123'
+
+        # 连接 linux 机器
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.connect(ip,22,name,passwd)
+        ssh.exec_command('echo "test" >> /data/taotao.txt')
+        ssh.close()
+
+
+
+    return render(request,'disk.html',{'id':id})
+
+def update(request):
+    ##  主机管理的页面更新按钮，远程控制我们的python脚本？
+
+    ip = '192.168.11.57'
+    name = 'root'
+    passwd = 'zhangtao@123'
+
+    # 连接 linux 机器
+    ssh = paramiko.SSHClient()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    ssh.connect(ip, 22, name, passwd)
+
+    aaa = ssh.exec_command('/usr/bin/python3  /home/monitor/cmdb/update_host.py')
+
+
+    return HttpResponse("准备开始更新主机数据，请耐心等待哦")
+
+# ansible web 相关开发
+
+from   service.forms import ProjectFrom  # 导入对应的forms表单
+
+def project_index(request):
+    all_project = project.objects.all()  # 查询数据
+    return render(request,'project_index.html',{'all_project':all_project})
+
+
+def ansible(request):
+    all_project = project.objects.all()
+    return render(request,'ansible.html',{'all_project':all_project})
+
+
+
+#####======== test 弹出框:
+from django.shortcuts import render
+
+def p1(request):
+    return render(request,"p1.html")
+
+def p2(request):
+    if request.method == "GET":
+        return render(request,"p2.html")
+    elif request.method == "POST":
+        city =request.POST.get("city")
+        print(city)
+        return render(request,"popup_response.html",{"city":city})
+
+
+## 自动化磁盘管理页面
+def automation_disk(request):
+    host_list = Host_table.objects.all()  # 取出所有的主机页面信息
+    paginator = Paginator(host_list, 15, 16)  # 实例化结果集，每页16条数据,少于15条就合并到上一页
+    page = request.GET.get('page')  # 接收网页传递过来的 page
+
+    try:
+        customer = paginator.page(page)  # 传递给当前的html对象
+
+    except PageNotAnInteger:
+
+        customer = paginator.page(1)
+    except EmptyPage:
+        customer = paginator.page(paginator.num_pages)
+    return render(request, 'automation_disk.html', {"host_list": customer})
+
 
 
