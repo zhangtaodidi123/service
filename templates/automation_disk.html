@@ -95,9 +95,9 @@
                                 <tr>
                                 <a><td type="text"  class="hidden-xs">{{ row.ip_in }}</td></a>
                                 <td><a   href="#" type="button" class="layui-btn layui-btn-mini layui-btn-normal" ><li  onclick="return tanchu(this.value)" value="{{ row.id }}">显示根目录剩余</li></a></td>
-{#                                <td ><a  href="#" type="button" class="layui-btn layui-btn-sm layui-btn-danger" ><li  onclick="return tanchu1(this.value)" value="{{ row.id }}">点击显示data目录剩余</li></a></td>#}
-{#                                <td ><a  href="#" type="button" class="layui-btn layui-btn-mini layui-btn-normal" ><li  onclick="return tanchu3(this.value)" value="{{ row.id }}">清理根目录</li></a></td>#}
-{#                                <td ><a  href="#" type="button" class="layui-btn layui-btn-mini layui-btn-normal" ><li  onclick="return tanchu3(this.value)" value="{{ row.id }}">清理data 目录</li></a></td>#}
+                                <td><a   href="#" type="button" class="layui-btn layui-btn-mini layui-btn-normal" ><li  onclick="return tanchu(this.value)" value="{{ row.id }}">显示data目录剩余</li></a></td>
+                                <td><a   href="#" type="button" class="layui-btn layui-btn-mini layui-btn-normal" ><li  onclick="return tanchu(this.value)" value="{{ row.id }}">清理/（七天之前）</li></a></td>
+                                <td><a   href="#" type="button" class="layui-btn layui-btn-mini layui-btn-normal" ><li  onclick="return tanchu(this.value)" value="{{ row.id }}">清理data（七天之前）</li></a></td>
                              {% endfor %}
                             </tr>
                             </form>
@@ -206,7 +206,7 @@
                closeBtn: 1,
                area: ['600px', '400px'],
                shadeClose: true, //点击遮罩关闭
-               content: ['/UserGroup/delete/' + n,],
+               content: ['/cat/gen_disk/' + n,],
                 handle_status :1,
 
 

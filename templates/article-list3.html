@@ -109,7 +109,7 @@ document.getElementById("stype").value = req.stype;
 
 									<th>ULBIP地址</th>
 									<th>使用功能备注</th>
-									<th>vserver管理选择</th>
+									<th>负载均衡端口</th>
 
 								</tr>
 							</thead>
@@ -125,11 +125,10 @@ document.getElementById("stype").value = req.stype;
                                 <td  style="width: 50px">
 
                                 <select id="stype" onChange="location.replace(this.options[this.selectedIndex].getAttribute('data-href'))">
-                                <option value="0" data-href="http://www.163.com">所有服务</option>
-                            <option value="1"><button type="button" class="layui-btn">一个标准的按钮</button>
-                            <a href="http://www.layui.com" class="layui-btn">一个可跳转的按钮</a></option>
-                                <option value="http://www.baidu.com">2</option>
-                                <option value="4">4</option>
+                                <option value="0" data-href="http://www.163.com">8080</option>
+                            <option value="1"><button type="button" class="layui-btn">9090</button>
+                            <option value="1"><button type="button" class="layui-btn">8888</button>
+
                             </select>
 {#                                <select>#}
 {#                                <option value="#">请选择</option>#}

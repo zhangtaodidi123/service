@@ -26,7 +26,7 @@ urlpatterns = [
     path('del_publisher/',views.del_publisher),
     path('index/del_publisher',views.del_publisher),
     re_path('UserGroup/edit/(?P<ids>\d+)/$', views.UserGroup_edit, name='UserGroup_edit'),
-    re_path('/cat/gen_disk/(?P<ids>\d+)/$', views.gen_disk, name='gen_disk'),
+    re_path('cat/gen_disk/(?P<ids>\d+)/$', views.gen_disk, name='gen_disk'),
     re_path('UserGroup/delete/(?P<ids>\d+)/$', views.UserGroup_delete, name='UserGroup_delete'),
     re_path('UserGroup/disk/(?P<ids>\d+)/$', views.disk, name='disk'),
     path('UserGroup/update', views.update, name='update'),

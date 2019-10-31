@@ -224,11 +224,32 @@ def UserGroup_edit(request, ids):
     return  render(request,'test.html',{'obj':obj})
 
 
+
+
 # 查看disk 目录大小
 def gen_disk(request,ids):
+    obj = Host_table.objects.filter(id=ids)   ## 根据url传递的ids，来查询obj
 
-    obj = obj = Host_table.objects.filter(id=ids)   ## 根据url传递的ids，来查询obj
-    return  render(request,'test.html',{'obj':obj})
+    for i in obj:
+
+        ipaddress = i.ip_in  # 获取出对应的IP地址
+
+        # # 远程连接ansible机器：
+        # ip = '10.25.201.114'
+        # name = 'root'
+        # passwd = 'Bl4PZJjx7fmx6oaY'
+        #
+        # # 连接 linux 机器
+        # ssh = paramiko.SSHClient()
+        # ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        # ssh.connect(ip,22,name,passwd)
+        # ssh.exec_command('echo "test" >> /data/taotao.txt')
+        # ssh.close()
+
+
+
+
+    return  render(request,'gen.html',{'obj':obj})
 
 
 
