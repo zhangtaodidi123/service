@@ -10,6 +10,11 @@
 		<title>ULB外网IP管理详情</title>
 		<link rel="stylesheet" type="text/css" href="{% static 'layui/css/layui.css' %}" />
 		<link rel="stylesheet" type="text/css" href="{% static 'css/admin.css' %}" />
+        <style>
+            .layui-form-select{
+                display: none;
+            }
+        </style>
 	</head>
 	<body>
         <script type="text/javascript">
@@ -124,10 +129,11 @@ document.getElementById("stype").value = req.stype;
 									<td class="hidden-xs">{{ row.comment }}</td>
                                 <td  style="width: 50px">
 
-                                <select id="stype" onChange="location.replace(this.options[this.selectedIndex].getAttribute('data-href'))">
-                                <option value="0" data-href="http://www.163.com">8080</option>
-                            <option value="1"><button type="button" class="layui-btn">9090</button>
-                            <option value="1"><button type="button" class="layui-btn">8888</button>
+
+                                <select id="stypelist" style="display: block;">
+                                <option value="http://baidu.com" data-href="http://www.163.com">8080</option>
+                                <option value="1"  data-href="http://www.163.com">999gfhfg9</option>
+                                <option value="1"  data-href="http://www.163.com"><button type="button" class="layui-btn">8888</button>
 
                             </select>
 {#                                <select>#}
