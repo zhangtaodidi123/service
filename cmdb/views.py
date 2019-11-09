@@ -254,7 +254,7 @@ def gen_disk(request,ids):
 
 
 
-
+        ##11、9 张涛更新
 
         a = AnsibleApi()
         host_list = ['10.25.97.96']
