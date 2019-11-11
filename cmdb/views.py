@@ -239,32 +239,33 @@ def UserGroup_edit(request, ids):
 
 
 
-
+#
 def gen_disk(request,ids):
-    obj = Host_table.objects.filter(id=ids)   ## 根据url传递的ids，来查询obj
-
-    for i in obj:
-
-        ipaddress = i.ip_in  # 获取出对应的IP地址
-
-        ## 执行本地目录的脚本文件:
-
-
-
-
-
-
-        ##11、9 张涛更新
-
-        a = AnsibleApi()
-        host_list = ['10.25.97.96']
-        tasks_list = [
-            dict(action=dict(module='command', args='ls')),
-        ]
-        a.runansible(host_list, tasks_list)
-        a.playbookrun(playbook_path=['/etc/ansible/test.yml'])
-
-    return  render(request,'gen.html',{'obj':obj})
+    pass
+    # obj = Host_table.objects.filter(id=ids)   ## 根据url传递的ids，来查询obj
+    #
+    # for i in obj:
+    #
+    #     ipaddress = i.ip_in  # 获取出对应的IP地址
+    #
+    #     ## 执行本地目录的脚本文件:
+    #
+    #
+    #
+    #
+    #
+    #
+    #     ##11、9 张涛更新
+    #
+    #     a = AnsibleApi()
+    #     host_list = ['10.25.97.96']
+    #     tasks_list = [
+    #         dict(action=dict(module='command', args='ls')),
+    #     ]
+    #     a.runansible(host_list, tasks_list)
+    #     a.playbookrun(playbook_path=['/etc/ansible/test.yml'])
+    #
+    # return  render(request,'gen.html',{'obj':obj})
 
 
 
