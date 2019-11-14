@@ -131,9 +131,11 @@ document.getElementById("stype").value = req.stype;
 
 
                                 <select id="stypelist" style="display: block;">
-                                <option value="http://baidu.com" data-href="http://www.163.com">8080</option>
-                                <option value="1"  data-href="http://www.163.com">999gfhfg9</option>
-                                <option value="1"  data-href="http://www.163.com"><button type="button" class="layui-btn">8888</button>
+                                <option value="http://baidu.com" data-href="http://www.163.com">{{ row.service1 }}</option>
+                                <option value="1"  data-href="http://www.163.com">{{ row.service2 }}</option>
+                                <option value="1"  data-href="http://www.13.com"><button type="button" class="layui-btn">{{ row.service3 }}</button>
+                                <option value="1"  data-href="http://www.163.com"><button type="button" class="layui-btn">{{ row.service4 }}</button>
+                                <option value="1"  data-href="http://www.163.com"><button type="button" class="layui-btn">{{ row.service5 }}</button>
 
                             </select>
 {#                                <select>#}

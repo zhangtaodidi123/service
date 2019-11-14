@@ -52,7 +52,11 @@ class EIP(models.Model):
 class ULB(models.Model):
     name = models.CharField(max_length=32, verbose_name='ULB名称')
     ulb_ip = models.GenericIPAddressField(protocol='ipv4', verbose_name='基础网络', unique=True)
-    service = models.CharField(max_length=218, verbose_name='后端节点',null=True)
+    service1 = models.CharField(max_length=218, verbose_name='后端节点1',null=True)
+    service2 = models.CharField(max_length=218, verbose_name='后端节点2',null=True)
+    service3 = models.CharField(max_length=218, verbose_name='后端节点3',null=True)
+    service4 = models.CharField(max_length=218, verbose_name='后端节点4',null=True)
+    service5 = models.CharField(max_length=218, verbose_name='后端节点4',null=True)
     comment = models.CharField(max_length=128, verbose_name='备注', null=True, blank=True)
 
     class Meta:
