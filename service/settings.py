@@ -88,8 +88,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'cmdb2',
         'USER': 'root',
-        'PASSWORD': 'zhangtao',
-        'HOST': '192.168.11.166',
+        'PASSWORD': '',
+        'HOST': '192.1.166',
         'PORT':'3306',
 
     }
